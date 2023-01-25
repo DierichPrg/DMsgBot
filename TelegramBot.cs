@@ -209,14 +209,14 @@ namespace DMsgBot
                     await this.BotChannelHandler(i!);
 
                 var findMessagesChat = invoiceMessages
-                    .Where(x => x.message.Peer is PeerChat && x.message.Peer.ID != this.BotCenterChat.ID)
+                    .Where(x => x.message.Peer is PeerUser && x.message.Peer.ID != this.BotCenterChat.ID && x.message.From.ID != this.User.ID)
                     .Select(x => x.message as Message);
 
                 foreach (var i in findMessagesChat)
                     this.RaiseOnChatMessage(new TelegramMessage(i!, ETelegramMessageFrom.Chat));
 
                 var findMessagesGroup = invoiceMessages
-                    .Where(x => x.message.Peer is PeerChannel && x.message.Peer.ID != this.BotCenterChat.ID)
+                    .Where(x => (x.message.Peer is PeerChannel || x.message.Peer is PeerChat) && x.message.Peer.ID != this.BotCenterChat.ID && x.message.From.ID != this.User.ID)
                     .Select(x => x.message as Message);
 
                 foreach (var i in findMessagesGroup)
