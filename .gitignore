@@ -5,6 +5,9 @@
 *.suo
 *.user
 *.sln.docstates
+telegram.json
+*.vsidx
+*.lock
 
 # Build results
 
